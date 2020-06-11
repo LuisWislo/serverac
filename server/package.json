@@ -1,0 +1,14 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "rest api server for use with mongodb",
+  "main": "index.js",
+  "scripts": {
+    "test": "server-start"
+  },
+  "author": "carlos-wilson",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
