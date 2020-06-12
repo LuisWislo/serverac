@@ -97,7 +97,7 @@ app.get('/get_user/:id', (req, res) => {
         if (err) throw err;
         const db = client.db('CruzandoAnimales');
         const collection = db.collection('users');
-        collection.findOne({username: new RegExp(req.params.id)}, (err, data) => {
+        collection.findOne({username: req.params.id}, (err, data) => {
             toSend=data;
             res.send(toSend)
         })
