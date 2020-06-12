@@ -24,7 +24,7 @@ app.get('/get_all_items', (req, res) => {
     MongoClient.connect(url, function(err, client) {
         if (err) throw err;
         const db = client.db('CruzandoAnimales');
-        const collection = db.collection('villagers');
+        const collection = db.collection('items');
         collection.find().toArray((err, data) => {
             toSend=data;
             res.send(toSend)
