@@ -116,6 +116,10 @@ app.get('/get_user_villagers/:id', (req, res) => {
     });
 })
 
+app.get('/test', (req, res) => {
+    res.send("love")
+})
+
 //TODO
 app.post('/auth_user/', (req, res) => {
     MongoClient.connect(url, function(err, client) {
