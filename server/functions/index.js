@@ -150,6 +150,17 @@ app.post('/register_user/', (req, res) => {
     });
 })
 
+app.post('/update_villager/', (req, res) => {
+    MongoClient.connect(url, function(err, client) {
+        if (err) throw err;
+        const db = client.db('CruzandoAnimales');
+        const collection = db.collection('users');
+        collection.updateOne({username : req.body.username}, { villager_name : req.body.villager_name, villager_birthday : req.body.villager_birthday }, (err, data) => {
+            console.log("Villager updated");
+        })
+    });
+})
+
 app.post('/add_villager/', (req, res) => {
     MongoClient.connect(url, function(err, client) {
         if (err) throw err;
@@ -171,7 +182,7 @@ app.post('/update_island/', (req, res) => {
         if (err) throw err;
         const db = client.db('CruzandoAnimales');
         const collection = db.collection('users');
-        collection.updateOne({username : req.body}, { island : { name : req.body.island.name, fruit : req.body.island.fruit }}, (err, data) => {
+        collection.updateOne({username : req.body.username}, { island : { name : req.body.island.name, fruit : req.body.island.fruit }}, (err, data) => {
             console.log("Island updated");
         })
     });
