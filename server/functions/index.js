@@ -54,7 +54,8 @@ app.get('/get_many_items/:many', (req, res) => {
         if (err) throw err;
         const db = client.db('CruzandoAnimales');
         const collection = db.collection('items');
-        collection.find().limit(req.params.many).toArray((err, data) => {
+        
+        collection.find().limit(+req.params.many).toArray((err, data) => {
             toSend=data;
             res.send(toSend)
         })
