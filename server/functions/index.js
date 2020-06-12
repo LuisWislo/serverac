@@ -235,5 +235,18 @@ app.post('/update_island/', (req, res) => {
     });
 })
 
+// Traer todas las categorias de ítems existentes
+app.get('/get_categories', (req, res) => {
+    MongoClient.connect(url, function(err, client) {
+        if (err) throw err;
+        const db = client.db('CruzandoAnimales');
+        const collection = db.collection('categories');
+        collection.find().toArray((err, data) => {
+            toSend=data;
+            res.send(toSend)
+        })
+    });
+})
+
 exports.api = functions.https.onRequest(app);
 
