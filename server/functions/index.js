@@ -121,12 +121,12 @@ app.get('/test', (req, res) => {
 })
 
 //TODO
-app.post('/auth_user/', (req, res) => {
+app.post('/auth_user', (req, res) => {
     MongoClient.connect(url, function(err, client) {
         if (err) throw err;
         const db = client.db('CruzandoAnimales');
         const collection = db.collection('users');
-        collection.findOne({username = req.body.username}, { projection : {_id : 0, username : 1, password : 1} }, (err, data) => {
+        collection.findOne({username : req.body.username}, { projection : {_id : 0, username : 1, password : 1} }, (err, data) => {
             if(req.body.password == data.password){
                 console.log("Welcome, " + req.body.username + "!");
                 res.send({status : true, username : req.body.username})
