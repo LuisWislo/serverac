@@ -32,6 +32,18 @@ app.get('/get_all_items', (req, res) => {
     });
 })
 
+app.get('/get_many_items/:many', (req, res) => {
+    MongoClient.connect(url, function(err, client) {
+        if (err) throw err;
+        const db = client.db('CruzandoAnimales');
+        const collection = db.collection('items');
+        collection.find().limit(req.params.many).toArray((err, data) => {
+            toSend=data;
+            res.send(toSend)
+        })
+    });
+})
+
 app.get('/get_villager/:name', (req, res) => {
     MongoClient.connect(url, function(err, client) {
         if (err) throw err;
