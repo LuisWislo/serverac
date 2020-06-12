@@ -8,6 +8,8 @@ var url = "mongodb+srv://cholegod:F5ckM3D4dd7@cruzandoanimales-fk5mo.azure.mongo
 app.use(cors({origin: true}))
 
 var toSend;
+
+// Traer todos los villagers
 app.get('/get_all_villagers', (req, res) => {
     MongoClient.connect(url, function(err, client) {
         if (err) throw err;
@@ -20,6 +22,20 @@ app.get('/get_all_villagers', (req, res) => {
     });
 })
 
+// Traer n villagers
+app.get('/get_many_villagers/:many', (req, res) => {
+    MongoClient.connect(url, function(err, client) {
+        if (err) throw err;
+        const db = client.db('CruzandoAnimales');
+        const collection = db.collection('villagers');
+        collection.find().limit(req.params.many).toArray((err, data) => {
+            toSend=data;
+            res.send(toSend)
+        })
+    });
+})
+
+//Traer todos los ítems
 app.get('/get_all_items', (req, res) => {
     MongoClient.connect(url, function(err, client) {
         if (err) throw err;
@@ -32,6 +48,7 @@ app.get('/get_all_items', (req, res) => {
     });
 })
 
+// Traer n ítems
 app.get('/get_many_items/:many', (req, res) => {
     MongoClient.connect(url, function(err, client) {
         if (err) throw err;
@@ -45,6 +62,7 @@ app.get('/get_many_items/:many', (req, res) => {
     });
 })
 
+// Traer todo el doc de un villager
 app.get('/get_villager/:name', (req, res) => {
     MongoClient.connect(url, function(err, client) {
         if (err) throw err;
@@ -57,6 +75,7 @@ app.get('/get_villager/:name', (req, res) => {
     });
 })
 
+// Traer la imagen de un villager
 app.get('/get_villager_image/:name', (req, res) => {
     MongoClient.connect(url, function(err, client) {
         if (err) throw err;
@@ -69,6 +88,7 @@ app.get('/get_villager_image/:name', (req, res) => {
     });
 })
 
+// Traer todo el doc de un ítem
 app.get('/get_item/:name', (req, res) => {
     MongoClient.connect(url, function(err, client) {
         if (err) throw err;
@@ -81,6 +101,7 @@ app.get('/get_item/:name', (req, res) => {
     });
 })
 
+// Traer la imagen de un ítem
 app.get('/get_item_image/:name', (req, res) => {
     MongoClient.connect(url, function(err, client) {
         if (err) throw err;
@@ -93,6 +114,7 @@ app.get('/get_item_image/:name', (req, res) => {
     });
 })
 
+// Traer los ítems bajo C categoria
 app.get('/get_item_category/:category', (req, res) => {
     MongoClient.connect(url, function(err, client) {
         if (err) throw err;
@@ -105,6 +127,7 @@ app.get('/get_item_category/:category', (req, res) => {
     });
 })
 
+// Traer todo el doc de un user
 app.get('/get_user/:id', (req, res) => {
     MongoClient.connect(url, function(err, client) {
         if (err) throw err;
@@ -117,6 +140,7 @@ app.get('/get_user/:id', (req, res) => {
     });
 })
 
+// Traer los villagers favoritos de un user
 app.get('/get_user_villagers/:id', (req, res) => {
     MongoClient.connect(url, function(err, client) {
         if (err) throw err;
@@ -129,11 +153,7 @@ app.get('/get_user_villagers/:id', (req, res) => {
     });
 })
 
-app.get('/test', (req, res) => {
-    res.send("love")
-})
-
-//TODO
+// Autorizar el acceso a un usuario
 app.post('/auth_user', (req, res) => {
     MongoClient.connect(url, function(err, client) {
         if (err) throw err;
@@ -152,6 +172,7 @@ app.post('/auth_user', (req, res) => {
     });
 })
 
+// Registrar un nuevo usuario
 app.post('/register_user/', (req, res) => {
     MongoClient.connect(url, function(err, client) {
         if (err) throw err;
@@ -170,6 +191,7 @@ app.post('/register_user/', (req, res) => {
     });
 })
 
+// Modificar los datos del villager del usuario
 app.post('/update_villager/', (req, res) => {
     MongoClient.connect(url, function(err, client) {
         if (err) throw err;
@@ -181,6 +203,7 @@ app.post('/update_villager/', (req, res) => {
     });
 })
 
+// Agregar un villager a los favoritos del usuario
 app.post('/add_villager', (req, res) => {
     MongoClient.connect(url, function(err, client) {
         if (err) throw err;
@@ -201,6 +224,7 @@ app.post('/add_villager', (req, res) => {
     });
 })
 
+// Modificar los datos de la isla de un usuario
 app.post('/update_island/', (req, res) => {
     MongoClient.connect(url, function(err, client) {
         if (err) throw err;
