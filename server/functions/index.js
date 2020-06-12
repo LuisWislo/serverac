@@ -145,7 +145,14 @@ app.post('/register_user/', (req, res) => {
         const db = client.db('CruzandoAnimales');
         const collection = db.collection('users');
         collection.insertOne(req.body, (err, data) => {
-            console.log("User inserted");
+            if (!err) {
+                console.log("User " + req.body.username + " inserted");
+                res.send({status : true, username : req.body.username})
+            } else {
+                console.log("Username already exists");
+                res.send({status : false})
+                throw err
+            }
         })
     });
 })
