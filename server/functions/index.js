@@ -192,7 +192,7 @@ app.post('/update_villager/', (req, res) => {
     });
 })
 
-app.post('/add_villager/', (req, res) => {
+app.post('/add_villager', (req, res) => {
     MongoClient.connect(url, function(err, client) {
         if (err) throw err;
         const db = client.db('CruzandoAnimales');
@@ -200,11 +200,15 @@ app.post('/add_villager/', (req, res) => {
         var villager
         collection.findOne({name : req.body.villager}, (err, data) => {
             villager = data
-        })
-        collection = db.collection('users');
-        collection.updateOne({username : req.body.username}, { $push : { villagers : villager } }, (err, data) => {
+            const collection2 = db.collection('users');
+            collection2.updateOne({username : req.body.username}, { $push : { villagers : villager } }, (err, data) => {
             console.log("Villager inserted");
+            console.log(villager)
+            res.send({status: true})
+            })
         })
+        
+        
     });
 })
 
