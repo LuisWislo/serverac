@@ -5,7 +5,12 @@ const app = express();
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb+srv://cholegod:F5ckM3D4dd7@cruzandoanimales-fk5mo.azure.mongodb.net/CruzandoAnimales?retryWrites=true&w=majority";
 
-app.use(cors({origin: false}))
+var corsOptions = {
+    origin: "https://cruzandoanimalesconcharlie.web.app",
+    optionsSuccessStatus: 200
+}
+
+app.use(cors(corsOptions))
 
 var toSend;
 
